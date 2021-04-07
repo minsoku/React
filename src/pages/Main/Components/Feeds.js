@@ -20,6 +20,7 @@ class Feeds extends React.Component{
             like : false,
             comment : this.state.value,
             id : this.state.comments.length + 1,
+            delete : false
           }
           ],
           value : "",
@@ -51,25 +52,30 @@ class Feeds extends React.Component{
     }
   }
 
-  likeChangeColor = (e) => {
-    let value = e.target.attributes.value.value - 1
+  likeChangeColor = (id) => {
+    let likeId = id - 1;
     let likeTrueFalse = [...this.state.comments]
-    if(this.state.comments[value].like == false){
-      likeTrueFalse[value] = {...likeTrueFalse[value], like : true}
+    if(this.state.comments[likeId].like == false){
+      likeTrueFalse[likeId] = {...likeTrueFalse[likeId], like : true}
       this.setState({
         comments : likeTrueFalse,
       })
     }
-    if(this.state.comments[value].like == true){
-      likeTrueFalse[value] = {...likeTrueFalse[value], like : false}
+    if(this.state.comments[likeId].like == true){
+      likeTrueFalse[likeId] = {...likeTrueFalse[likeId], like : false}
       this.setState({
         comments : likeTrueFalse,
       })
     }
   }
-  commentDelete = (e) => {
-    let value = e.target.attributes.value.value - 1 
 
+  commentDelete = (id) => {
+    console.log(id)
+    this.setState(falseDelete => ({
+      comments: falseDelete.comments.filter((e) => e.id !== id)
+    }))
+  
+    console.log(this.state.comments)
   }
   render(){
     return (
@@ -117,8 +123,8 @@ class Feeds extends React.Component{
                 <div className="Comment">
                   <li>{elements.comment}</li>
                   <div className="CommentOption">
-                    <div style={{color: elements.like == true ? "red" : "black"}} onClick={this.likeChangeColor} value={elements.id} className="CommentLike">♥️</div> 
-                    <div onClick={this.commentDelete} value={elements.id} className="CommentDelete">X</div>
+                    <div style={{color: elements.like == true ? "red" : "black"}} onClick={() =>{this.likeChangeColor(elements.id)}}className="CommentLike">♥️</div> 
+                    <div onClick={()=> {this.commentDelete(elements.id)}} value={elements.id} className="CommentDelete">X</div>
                   </div>
                 </div>
                   )
