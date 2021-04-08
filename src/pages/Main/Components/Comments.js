@@ -8,7 +8,7 @@ class Comments extends React.Component {
         {this.props.test.comments.map(elements =>{
           return(
             <div className="Comment">
-              <li>{elements}</li>
+              <li key={elements.id}>{elements}</li>
               <div className="CommentOption">
                 <div className="CommentLike">♥️</div>
                 <div className="CommentDelete">X</div>

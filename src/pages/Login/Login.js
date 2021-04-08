@@ -15,7 +15,6 @@ class Login extends React.Component{
     let idTest = /[@]/; 
     if(idTest.test(this.state.id) && this.state.pw.length > 5){
       fetch("http://localhost:3000/data/Login.json",{
-        method: "GET",
       })
       .then((res) => res.json())
       .then((res) => 
